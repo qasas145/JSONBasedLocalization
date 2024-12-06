@@ -1,8 +1,16 @@
+using Microsoft.Extensions.Localization;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
-
+builder.Services.AddLocalization();
+builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+builder.Services.AddMvc()
+    .AddViewLocalization()
+    .AddDataAnnotationsLocalization(options=>{
+        options.DataAnnotationLocalizerProvider = (type, factory)=>factory.Create(typeof(JsonStringLocalizerFactory));
+    });
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
