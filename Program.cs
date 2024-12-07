@@ -1,4 +1,7 @@
+using System.Globalization;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +14,16 @@ builder.Services.AddMvc()
     .AddDataAnnotationsLocalization(options=>{
         options.DataAnnotationLocalizerProvider = (type, factory)=>factory.Create(typeof(JsonStringLocalizerFactory));
     });
+builder.Services.Configure<RequestLocalizationOptions>(options=>{
+    var supportedCultures = new [] {
+        
+        new CultureInfo("en-US"),
+        new CultureInfo("ar-EG"),
+    };
+    options.DefaultRequestCulture = new RequestCulture(supportedCultures[0].Name, supportedCultures[0].Name);
+    options.SupportedCultures = supportedCultures;
+});
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -26,6 +39,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+var locOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>();
+app.UseRequestLocalization(locOptions.Value);
 app.UseAuthorization();
 
 app.MapControllerRoute(
