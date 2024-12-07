@@ -7,7 +7,9 @@ using JsonBasedLocalization.ViewModels;
 
 namespace JsonBasedLocalization.Controllers;
 
-public class HomeController : Controller
+[ApiController]
+[Route("/api/[controller]")]
+public class HomeController : ControllerBase
 {
     private readonly ILogger<HomeController> _logger;
     private readonly IStringLocalizer<HomeController> _localizer;
@@ -18,36 +20,22 @@ public class HomeController : Controller
         _localizer = localizer;
     }
 
-    public IActionResult Index()
-    {
-        var welcomeMessage = _localizer["welcome", "Muhammad Elsayed elqasas"];
-        ViewBag.welcomeMessage = welcomeMessage;
-        return View();
-    }
-    public IActionResult Create() {
-        return View();
+    [HttpPost("getvalue/{name}")]
+    public IActionResult GetValue(string name) {
+        return Ok(_localizer[name]);
     }
     [HttpPost]
     public IActionResult Create(CreateDTO model) {
-        return View();
+        return Ok();
     }
-    [HttpPost]
-    public IActionResult SetLanguage(string culture, string returnUrl){
+    [HttpPost("changeCulture/{culture}")]
+    public IActionResult SetLanguage(string culture){
         Response.Cookies.Append(
             CookieRequestCultureProvider.DefaultCookieName, 
             CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)), 
             new CookieOptions(){Expires = DateTimeOffset.Now.AddYears(1)}
         );
-        return LocalRedirect(returnUrl);
-    }
-    public IActionResult Privacy()
-    {
-        return View();
+        return Ok("The culture has been changed");
     }
 
-    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-    public IActionResult Error()
-    {
-        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-    }
 }
