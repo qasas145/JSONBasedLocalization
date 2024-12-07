@@ -1,0 +1,9 @@
+@model CreateViewModel;
+@inject IViewLocalizer _localizer;
+<form method="post">
+    <label asp-for="Name"></label>
+    <input asp-for="Name" class="form-control" type="text">
+    <span asp-validation-for="Name" class="text-danger"></span>
+    <button class="btn btn-primary">@_localizer["save"]</button>
+</form>
+
