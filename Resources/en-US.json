@@ -1,3 +1,7 @@
 {
-    "welcome" :"hello {0} from the english of the united states"
+    "welcome" :"hello {0} from the english of the united states",
+    "create" : "create",
+    "required" : "required field",
+    "name" : "name",
+    "save" : "save"
 }
