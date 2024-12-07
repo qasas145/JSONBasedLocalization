@@ -19,7 +19,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var welcomeMessage = _localizer["welcome"];
+        var welcomeMessage = string.Format(_localizer["welcome"], "Muhammad Elsayed");
         ViewBag.welcomeMessage = welcomeMessage;
         return View();
     }
