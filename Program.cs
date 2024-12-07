@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddLocalization();
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMvc()
     .AddViewLocalization()
     .AddDataAnnotationsLocalization(options=>{
