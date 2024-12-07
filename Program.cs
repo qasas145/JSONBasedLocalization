@@ -11,7 +11,6 @@ builder.Services.AddLocalization();
 builder.Services.AddSingleton<IStringLocalizerFactory, JsonStringLocalizerFactory>();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddMvc()
-    .AddViewLocalization()
     .AddDataAnnotationsLocalization(options=>{
         options.DataAnnotationLocalizerProvider = (type, factory)=>factory.Create(typeof(JsonStringLocalizerFactory));
     });
@@ -21,9 +20,8 @@ builder.Services.Configure<RequestLocalizationOptions>(options=>{
         new CultureInfo("en-US"),
         new CultureInfo("ar-EG"),
     };
-    options.DefaultRequestCulture = new RequestCulture(supportedCultures[0].Name, supportedCultures[0].Name);
+    options.DefaultRequestCulture = new RequestCulture(supportedCultures[0].Name);
     options.SupportedCultures = supportedCultures;
-    options.SupportedUICultures = supportedCultures;
 });
 
 var app = builder.Build();

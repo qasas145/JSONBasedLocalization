@@ -20,7 +20,7 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var welcomeMessage = string.Format(_localizer["welcome"], "Muhammad Elsayed");
+        var welcomeMessage = _localizer["welcome", "Muhammad Elsayed elqasas"];
         ViewBag.welcomeMessage = welcomeMessage;
         return View();
     }
@@ -28,7 +28,7 @@ public class HomeController : Controller
         return View();
     }
     [HttpPost]
-    public IActionResult Create(CreateViewModel model) {
+    public IActionResult Create(CreateDTO model) {
         return View();
     }
     [HttpPost]
