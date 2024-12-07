@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using JsonBasedLocalization.Models;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Localization;
 
 namespace JsonBasedLocalization.Controllers;
 
@@ -19,13 +20,19 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         var welcomeMessage = _localizer["welcome"];
-        Console.WriteLine(welcomeMessage.ResourceNotFound);
-        Console.WriteLine(welcomeMessage.Name);
-        Console.WriteLine(welcomeMessage.Value);
         ViewBag.welcomeMessage = welcomeMessage;
         return View();
     }
 
+    [HttpPost]
+    public IActionResult SetLanguage(string culture, string returnUrl){
+        Response.Cookies.Append(
+            CookieRequestCultureProvider.DefaultCookieName, 
+            CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)), 
+            new CookieOptions(){Expires = DateTimeOffset.Now.AddYears(1)}
+        );
+        return LocalRedirect(returnUrl);
+    }
     public IActionResult Privacy()
     {
         return View();
