@@ -21,7 +21,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options=>{
         new CultureInfo("en-US"),
         new CultureInfo("ar-EG"),
     };
-    options.DefaultRequestCulture = new RequestCulture(supportedCultures[0].Name, supportedCultures[0].Name);
+    // options.DefaultRequestCulture = new RequestCulture(supportedCultures[0].Name, supportedCultures[0].Name);
     options.SupportedCultures = supportedCultures;
     options.SupportedUICultures = supportedCultures;
 });
@@ -45,6 +45,7 @@ var locOptions = app.Services.GetService<IOptions<RequestLocalizationOptions>>()
 app.UseRequestLocalization(locOptions.Value);
 app.UseAuthorization();
 
+app.UseRequestCulture();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");

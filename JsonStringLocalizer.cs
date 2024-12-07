@@ -38,14 +38,11 @@ public class JsonStringLocalizer : IStringLocalizer
         var filePath = Path.GetFullPath(path);
         if (File.Exists(filePath)){
             var cacheKey = $"locale_{Thread.CurrentThread.CurrentCulture.Name}_{key}";
-            Console.WriteLine(cacheKey);
             var cacheValue = _cache.GetString(cacheKey);
-            Console.WriteLine("cache value is {0}", cacheValue);
 
             if (!string.IsNullOrEmpty(cacheValue)) 
                 return cacheValue;
             var result = GetValueFromJson(key, filePath);
-            Console.WriteLine("the result from the file is {0}", result);
             if (!string.IsNullOrEmpty(result)) {
                 _cache.SetString(cacheKey, result);
             }
