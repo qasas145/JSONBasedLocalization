@@ -1,9 +1,10 @@
+@using Microsoft.AspNetCore.Localization
 @using Microsoft.AspNetCore.Mvc.Localization
 @using Microsoft.Extensions.Options
 @inject IOptions<RequestLocalizationOptions> _options;
 @inject IViewLocalizer _localizer;
 @{
-    @* var languages = Context.Features. *@
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
     var returnUrl = string.IsNullOrEmpty(Context.Request.Path)?"~/":$"~{Context.Request.Path}";
     var cultures = _options.Value.SupportedCultures.Select(i=>new SelectListItem(i.NativeName, i.Name));
 };
@@ -13,3 +14,5 @@
         name="culture"  
         asp-items="cultures"></select>
 </form>   
+
+
