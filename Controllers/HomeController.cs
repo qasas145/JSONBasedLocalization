@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using JsonBasedLocalization.Models;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Localization;
+using JsonBasedLocalization.ViewModels;
 
 namespace JsonBasedLocalization.Controllers;
 
@@ -23,7 +24,13 @@ public class HomeController : Controller
         ViewBag.welcomeMessage = welcomeMessage;
         return View();
     }
-
+    public IActionResult Create() {
+        return View();
+    }
+    [HttpPost]
+    public IActionResult Create(CreateViewModel model) {
+        return View();
+    }
     [HttpPost]
     public IActionResult SetLanguage(string culture, string returnUrl){
         Response.Cookies.Append(

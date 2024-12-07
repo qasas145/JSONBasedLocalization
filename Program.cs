@@ -22,6 +22,7 @@ builder.Services.Configure<RequestLocalizationOptions>(options=>{
     };
     options.DefaultRequestCulture = new RequestCulture(supportedCultures[0].Name, supportedCultures[0].Name);
     options.SupportedCultures = supportedCultures;
+    options.SupportedUICultures = supportedCultures;
 });
 
 var app = builder.Build();

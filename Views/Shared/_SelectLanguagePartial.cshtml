@@ -6,10 +6,11 @@
 @{
     var requestCulture = Context.Features.Get<IRequestCultureFeature>();
     var returnUrl = string.IsNullOrEmpty(Context.Request.Path)?"~/":$"~{Context.Request.Path}";
-    var cultures = _options.Value.SupportedCultures.Select(i=>new SelectListItem(i.NativeName, i.Name));
+    var cultures = _options.Value.SupportedUICultures.Select(i=>new SelectListItem(i.NativeName, i.Name));
 };
 <form metod="post" asp-controller="Home" asp-action="SetLanguage" asp-route-returnUrl ="@returnUrl">
     <select 
+        asp-for="@requestCulture.RequestCulture.UICulture.Name"
         onchange="this.form.submit()"  
         name="culture"  
         asp-items="cultures"></select>

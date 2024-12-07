@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Localization;
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var isRTL =  requestCulture.RequestCulture.Culture.Name.StartsWith("ar") ? "rtl" : "ltr";
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -8,7 +13,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/JsonBasedLocalization.styles.css" asp-append-version="true" />
 </head>
-<body>
+<body dir="@isRTL">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">

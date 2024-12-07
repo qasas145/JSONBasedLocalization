@@ -16,7 +16,7 @@ public class JsonStringLocalizer : IStringLocalizer
         get {
             var valueObject = this[name];
             if (!valueObject.ResourceNotFound ) 
-                return new LocalizedString(name, string.Concat(valueObject.Value, arguments));
+                return new LocalizedString(name, string.Format(valueObject.Value, arguments));
             return valueObject;
         }
     }
